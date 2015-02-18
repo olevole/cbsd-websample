@@ -1,0 +1,18 @@
+Для инсталляции PHP скриптов:
+
+1) иметь CBSD
+2) завести пользователя web, от которого будет работать nginx/php-fpm
+3) добавить в группу cbsd пользователя web (как в файле group)
+4) создать каталог для скриптов: mkdir -p /home/web/cbsd.localhost/public_html
+5) Перенести туда каталог со скриптами: cp -a jaction ~web/cbsd.localhost/public_html && chown -R web:www ~web
+6) иметь структуру/конфигурацию nginx как в каталоге nginx. Если workdir CBSD не в /usr/jails, исправить путь в vhosts переменной WORKDIR
+7) добавить или изменить в /usr/local/etc/{php-fpm.conf,php.ini} те параметры, которые установлены в php-fpm.conf, php.ini
+8) mkdir /var/log/httpd
+9) touch /var/log/httpd/php.err
+10) chown web:www /var/log/httpd/php.err
+11) sysrc php-fpm_enable="YES"; sysrc nginx_enable="YES"
+12) в /usr/local/etc/rc.d/sudoers.d положить файлик web из каталога sudoers.d
+13) service php-fpm start; service nginx start
+14)  /etc/hosts прописать cbsd.localhost на соотв ip
+
+После чего, должно в броузере открыться хоть что-то по http://cbsd.localhost/jaction/

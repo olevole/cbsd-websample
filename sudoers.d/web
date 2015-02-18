@@ -1,0 +1,3 @@
+Defaults     env_keep += "workdir DIALOG NOCOLOR"
+Cmnd_Alias   WEB_CMD = /usr/jails/sudoexec/*,/usr/local/cbsd/sudoexec/*
+web   ALL=(ALL) NOPASSWD: WEB_CMD

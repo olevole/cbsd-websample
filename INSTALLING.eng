@@ -1,0 +1,18 @@
+For install scripts:
+
+1) Have CBSD installed
+2) Add 'web' user, from which will work nginx/php-fpm
+3) Add 'web' user into cbsd group (see group file in current dir as sample of line)
+4) Create directory for WEB docroot: mkdir -p /home/web/cbsd.localhost/public_html
+5) Move directory with scripts and change owner: cp -a jaction ~web/cbsd.localhost/public_html && chown -R web:www ~web
+6) Have correct NGINX settings as nginx directory . When workdir of CBSD is not /usr/jails, correct this path in WORKDIR variable in vhosts file.
+7) Add or change in /usr/local/etc/{php-fpm.conf,php.ini} those parameters which is sets in php-fpm.conf and php.ini in current dir
+8) mkdir /var/log/httpd
+9) touch /var/log/httpd/php.err
+10) chown web:www /var/log/httpd/php.err
+11) sysrc php-fpm_enable="YES"; sysrc nginx_enable="YES"
+12) In yout /usr/local/etc/rc.d/sudoers.d put web file from ~/sudoers.d to allow CBSD privileges command.
+13) service php-fpm start; service nginx start
+14) put into /etc/hosts IP of you NGINX for cbsd.localhost 
+
+After that, the browser should open at least something to http://cbsd.localhost/jaction/
